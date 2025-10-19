@@ -6,7 +6,6 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom CSS
 st.markdown("""
     <style>
     .main {
@@ -15,12 +14,11 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# Title and header
+
 st.title("Eniola Healthcare Center")
 st.markdown("Your Health, Our Priority | 08085017583 | Ayorindesaheed2003@gmail.com")
 st.markdown("---")
 
-# Sidebar
 with st.sidebar:
     st.header("About Us")
     st.write("Location: 23 Bashorun Ojoo Road, Sango, Ibadan")
@@ -48,7 +46,7 @@ with st.sidebar:
         st.session_state.initialized = False
         st.rerun()
 
-# Initialize chat history
+
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
@@ -58,7 +56,7 @@ if "initialized" not in st.session_state:
 if "quick_action" not in st.session_state:
     st.session_state.quick_action = None
 
-# Send initial greeting only once
+
 if not st.session_state.initialized and len(st.session_state.messages) == 0:
     with st.chat_message("assistant"):
         greeting_prompt = "You are starting a new conversation. Greet the customer warmly and ask how you can help them. Keep it brief (2-3 sentences max)."
@@ -67,22 +65,22 @@ if not st.session_state.initialized and len(st.session_state.messages) == 0:
     st.session_state.messages.append({"role": "assistant", "content": greeting})
     st.session_state.initialized = True
 
-# Display chat messages from history
+
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# Handle quick actions
+
 if st.session_state.quick_action:
     prompt = st.session_state.quick_action
     st.session_state.quick_action = None
     
-    # Add user message
+   
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
     
-    # Generate response with history
+    
     with st.chat_message("assistant"):
         model_response = support_function(
             user_prompt=prompt,
@@ -92,22 +90,22 @@ if st.session_state.quick_action:
     
     st.session_state.messages.append({"role": "assistant", "content": response})
 
-# Accept user input
+
 if prompt := st.chat_input("How can I help you today?"):
-    # Add user message to chat history
+    
     st.session_state.messages.append({"role": "user", "content": prompt})
     
-    # Display user message
+    
     with st.chat_message("user"):
         st.markdown(prompt)
 
-    # Display assistant response with conversation history
+    
     with st.chat_message("assistant"):
         try:
-            # Pass chat history to maintain context
+            
             model_response = support_function(
                 user_prompt=prompt,
-                chat_history=st.session_state.messages[:-1]  # Exclude current message
+                chat_history=st.session_state.messages[:-1] 
             )
             response = st.write_stream(response_generator(response=model_response))
             
@@ -115,10 +113,10 @@ if prompt := st.chat_input("How can I help you today?"):
             response = f"Error: {str(e)}"
             st.error(response)
     
-    # Add assistant response to chat history
+    
     st.session_state.messages.append({"role": "assistant", "content": response})
 
-# Footer
+
 st.markdown("---")
 col1, col2, col3 = st.columns(3)
 with col1:

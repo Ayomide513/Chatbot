@@ -4,11 +4,11 @@ from typing import Optional
 from prompt import SYSTEM_PROMPT
 import time
 
-# Get google_api_key from settings
+
 settings = Settings()
 client = genai.Client(api_key=settings.google_api_key)
 
-# Initialize chat session globally (maintains conversation history)
+
 chat_session = None
 
 def initialize_chat():
@@ -33,21 +33,21 @@ def support_function(user_prompt: str, chat_history: list = None) -> Optional[st
         chat_history: List of previous messages for context
     """
     try:
-        # Build conversation context
+        
         conversation = f"{SYSTEM_PROMPT}\n\n"
         
-        # Add chat history if available
+        
         if chat_history:
             conversation += "Previous conversation:\n"
-            for msg in chat_history[-6:]:  # Only last 6 messages for context
+            for msg in chat_history[-6:]:  
                 role = msg["role"]
                 content = msg["content"]
                 conversation += f"{role.capitalize()}: {content}\n"
         
-        # Add current user message
+        
         conversation += f"\nUser: {user_prompt}\n\nAssistant:"
         
-        # Generate response
+        
         response = client.models.generate_content(
             model="gemini-2.0-flash-exp",
             contents=conversation
