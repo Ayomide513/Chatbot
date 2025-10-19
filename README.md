@@ -54,7 +54,7 @@ This chatbot addresses these challenges by providing:
 - Analytics dashboard for tracking customer interactions
 - Escalation to human agents for complex queries
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 **Frontend:**
 - HTML5
@@ -68,15 +68,10 @@ This chatbot addresses these challenges by providing:
 - Natural Language Processing (NLP) libraries:
   - NLTK or spaCy
   - Transformers (Hugging Face)
-  
-**Database:**
-- SQLite (development)
-- PostgreSQL/MySQL (production)
+
 
 **APIs & Integrations:**
-- OpenAI API / Custom NLP models
-- Payment gateway integration (if applicable)
-- SMS/Email notification services
+- Google API / Custom NLP models
 
 ##  Installation
 
